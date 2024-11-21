@@ -4,10 +4,12 @@ const mongoose = require('mongoose');
 const config = require('./config/db');
 
 const app = express();
+
 //Request management configurations
-//body için
+//For request body
 app.use(express.json());
-//url için
+
+//For URL
 app.use(express.urlencoded({extended: true}))
 
 //Database connection process
@@ -19,13 +21,3 @@ app.use('/api', routes);
 app.listen(3000,() =>{
     console.log('ayaktayiz')
 })
-
-/*
-app.get('/test', async(req,res) =>{
-    console.log('karşıladık');
-    res.status(200).send({
-        response:'process success'
-    })
-})
-*/
-//app.use(express.json());
