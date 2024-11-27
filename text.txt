@@ -1,0 +1,12 @@
+Dockerfile:
+- For node version run this command ">> node -v >> v18.14.0" and paste resulted version to the file.
+- Add "start": "nodemon --env-file=.env index.js" into package.json scripta key.
+
+docker-compose.yaml hazırla.
+
+Docker commands:
+>> docker-compose down
+>> docker-compose build
+>> docker-compose up -d
+
+>> docker ps
