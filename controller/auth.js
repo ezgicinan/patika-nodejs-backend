@@ -7,10 +7,15 @@ const authController = {
             return res.status(400).send({message:"Email and password required"})
         }
 
+        
+
         try{
-            const response = '';
+            console.log("auth controller'a geldik");
+            //const response = await authService.login(req.body);
+            res.status(200).send({response:{}})
+            /*const response = '';
             console.log(req.body.email,'email')
-            res.status(200).send({response:req.body})
+            res.status(200).send({response:req.body})*/
         }catch(error){
             console.log('Error #auth/login: ', error);
         }

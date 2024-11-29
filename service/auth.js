@@ -2,8 +2,8 @@ const bcrypt = require('bcryptjs');
 const mongooseUser = require('../model/user')
 //const jwt = require('jsonwebtoken')
 
-async function createUser(userParams) {
-    const { username, email, password } = userParams;
+async function login(userParams) {
+    const {email, password } = userParams;
     try {
         const hashedPassword = bcrypt.hashSync(password, 10);
         const newUser = new mongooseUser({ 
@@ -47,7 +47,7 @@ async function deleteUser(userParams){
 }
 
 
-async function login(userParams) {
+async function login2(userParams) {
     const {email,password} = userParams;
     try {
         const user = await mongooseUser.findOne({ email });
