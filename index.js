@@ -16,11 +16,20 @@ config.connectionDB();
 
 //localhost:3000 - http://localhost:3000/
 //örnek router
+app.use('/test', function(req,res,next){
+    console.log('Middleware')
+    next();
+    //res.status(200).send({success:true})
+}, function(req,res){
+    console.log('Controller')
+  res.status(200).send({success:true})
+})
+
+
 app.use('/api', routes);
 app.listen(3000,() =>{
     console.log('ayaktayiz')
 })
-
 app.get('/api/test', async(req,res) =>{
     console.log('karşıladık');
     res.status(200).send({
