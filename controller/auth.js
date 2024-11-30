@@ -1,5 +1,5 @@
 const userService = require('../service/user')
-//const authService = require('../service/auth')
+const authService = require('../service/auth')
 
 const authController = {
     login: async(req,res)=>{
@@ -7,15 +7,12 @@ const authController = {
             return res.status(400).send({message:"Email and password required"})
         }
 
-        
-
         try{
             console.log("auth controller'a geldik");
-            //const response = await authService.login(req.body);
-            res.status(200).send({response:{}})
-            /*const response = '';
-            console.log(req.body.email,'email')
-            res.status(200).send({response:req.body})*/
+            const response = await authService.login(req.body);
+            console.log('resp from service: ', response);
+
+            res.status(200).send({response:response})
         }catch(error){
             console.log('Error #auth/login: ', error);
         }

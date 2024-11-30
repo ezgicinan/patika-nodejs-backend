@@ -1,21 +1,23 @@
 const bcrypt = require('bcryptjs');
 const mongooseUser = require('../model/user')
-//const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
+require('dotenv').config();
 
 async function login(userParams) {
     const {email, password } = userParams;
     try {
-        const hashedPassword = bcrypt.hashSync(password, 10);
-        const newUser = new mongooseUser({ 
-            username, 
-            email, 
-            password: hashedPassword 
-        });
+        const user = await mongooseUser.findOne({ email });
+        console.log("#login-service: User: ", user);
 
-        newUser.save();
-        return true;
+        if(!user || !(await bcrypt.compare(password, user.password))){
+            return {message:'Invalid email or password'};
+        }
+        const token = jwt.sign({email:user.email}, process.env.JWT_SECRET, {
+            expiresIn: '1h'
+        })
+        return {token:token, message:'Login successful'};
     } catch (error) {
-        console.log('Error #SERVICE/AUTH/UserCreate: ', error);
+        console.log('Error #SERVICE/AUTH/login: ', error);
         return false;
     }
 }
@@ -47,7 +49,7 @@ async function deleteUser(userParams){
 }
 
 
-async function login2(userParams) {
+async function login2create(userParams) {
     const {email,password} = userParams;
     try {
         const user = await mongooseUser.findOne({ email });
@@ -62,6 +64,14 @@ async function login2(userParams) {
             expiresIn: '1h'
         })
         */
+        /*
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        const newUser = new mongooseUser({ 
+            username, 
+            email, 
+            password: hashedPassword 
+        });
+        newUser.save();*/
 
         return { success: true, object: token };
     } catch (error) {
@@ -70,7 +80,7 @@ async function login2(userParams) {
 }
 
 module.exports = {
-    createUser,
+    login,
     updateUser,
     deleteUser
 }
