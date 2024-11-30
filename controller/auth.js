@@ -10,8 +10,6 @@ const authController = {
         try{
             console.log("auth controller'a geldik");
             const response = await authService.login(req.body);
-            console.log('resp from service: ', response);
-
             res.status(200).send({response:response})
         }catch(error){
             console.log('Error #auth/login: ', error);

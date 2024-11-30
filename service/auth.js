@@ -7,7 +7,7 @@ async function login(userParams) {
     const {email, password } = userParams;
     try {
         const user = await mongooseUser.findOne({ email });
-        console.log("#login-service: User: ", user);
+        console.log("User: ", user);
 
         if(!user || !(await bcrypt.compare(password, user.password))){
             return {message:'Invalid email or password'};
